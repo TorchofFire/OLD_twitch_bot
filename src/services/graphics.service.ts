@@ -14,11 +14,12 @@ class GraphicsService {
         this.centerOfBounds = Matter.Vector.div(Matter.Vector.add(render.bounds.min, render.bounds.max), 2);
     }
 
-    public moveDivToPosition(div: HTMLDivElement, position: Matter.Vector, offset?: {x: number; y: number}): void {
+    public moveDivToPosition(div: HTMLDivElement, position: Matter.Vector, radian?: number, offset?: {x: number; y: number}): void {
         const divPositionViewport = Matter.Vector.sub(position, this.centerOfBounds);
 
         div.style.position = 'fixed';
         div.style.transform = 'translate(-50%, -50%)';
+        if (radian) div.style.rotate = `${radian}rad`;
         if (offset) {
             divPositionViewport.x += offset.x;
             divPositionViewport.y += offset.y;

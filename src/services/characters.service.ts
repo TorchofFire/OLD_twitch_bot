@@ -8,16 +8,20 @@ class CharactersService {
     characters: Character[] = [];
     charactersMap: Map<string, Character> = new Map();
 
-    public newCharacter(username: string): void {
+    public newCharacter(username: string): Character {
         const character = new Character(window.innerWidth / 2, window.innerHeight / 2, username);
         this.characters.push(character);
         this.charactersMap.set(character.username, character);
         Matter.World.add(world, character.body);
         nameTagService.newTag(character.username);
         characterSpriteService.newSprite(character.username);
+        Matter.Body.setVelocity(character.body, { x: (Math.random() - 0.5) * 10, y: 0 });
+        return character;
     }
 
-    public updatecharacter(): void {
+    public updateCharacters(): void {
+        nameTagService.moveTagsToCharacters();
+        characterSpriteService.moveSpritesToCharacters();
     }
 
     public removecharacter(username: string): void {
@@ -27,6 +31,7 @@ class CharactersService {
         this.characters = this.characters.filter(plyr => plyr !== character);
         this.charactersMap.delete(character.username!);
         nameTagService.removeTag(character.username!);
+        characterSpriteService.removeSprite(character.username!);
     }
 
     public inBetween(): void {

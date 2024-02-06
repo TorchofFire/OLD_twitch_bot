@@ -2,9 +2,10 @@ import Matter from 'matter-js';
 import { timeManagerService } from './services/timeManager.service';
 import { mapService } from './services/map.service';
 import { charactersService } from './services/characters.service';
-import { nameTagService } from './services/nameTag.service';
 import { graphicsService } from './services/graphics.service';
-import { characterSpriteService } from './services/characterSprite.service';
+import { twitchChatService } from './services/twitchChat.service';
+
+twitchChatService.init();
 
 const engine = Matter.Engine.create();
 export const world = engine.world;
@@ -32,8 +33,7 @@ graphicsService.updateViewportCalculations();
 
 function loop(): void {
 
-    nameTagService.moveTagsToCharacters();
-    characterSpriteService.moveSpritesToCharacters();
+    charactersService.updateCharacters();
 
     timeManagerService.logic();
     Matter.Engine.update(engine, timeManagerService.deltaTime * 2500);

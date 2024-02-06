@@ -11,7 +11,7 @@ class NameTagService {
             if (!nametag.textContent) continue;
             const character = charactersService.charactersMap.get(nametag.textContent);
             if (!character || !render.options.width) return;
-            graphicsService.moveDivToPosition(nametag, character.body.position, { x: 0, y: -80 });
+            graphicsService.moveDivToPosition(nametag, character.body.position, 0, { x: 0, y: -70 });
         }
     }
 
